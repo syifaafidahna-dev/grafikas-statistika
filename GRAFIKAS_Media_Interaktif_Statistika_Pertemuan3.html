@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRAFIKAS - Media Interaktif Penyajian Data | Statistika Unindra</title>
+<style>
+  body{margin:0;padding:0;background:#eef2f6;color:#22303c;
+       font-family:"Segoe UI",Tahoma,Verdana,Arial,sans-serif;font-size:15px;line-height:1.55;}
+  .wrap{max-width:940px;margin:0 auto;background:#fff;}
+  .hd{background:#1f4e79;color:#fff;padding:18px 26px 14px 26px;}
+  .hd .logo{display:inline-block;width:46px;height:46px;border:2px solid #f0c419;border-radius:50%;
+       text-align:center;line-height:44px;font-weight:bold;font-size:19px;color:#f0c419;vertical-align:middle;}
+  .hd .ttl{display:inline-block;vertical-align:middle;margin-left:14px;}
+  .hd h1{margin:0;font-size:23px;letter-spacing:1px;}
+  .hd p{margin:2px 0 0 0;font-size:12.5px;color:#c8dcef;}
+  .nav{background:#173e60;padding:0 18px;}
+  .nav a{display:inline-block;padding:10px 15px;color:#c8dcef;text-decoration:none;font-size:13px;
+       border-bottom:3px solid transparent;}
+  .nav a.on{color:#fff;font-weight:bold;border-bottom:3px solid #f0c419;background:#1f4e79;}
+  .pane{padding:22px 26px 30px 26px;}
+  h2{font-size:19px;color:#1f4e79;margin:0 0 4px 0;}
+  h3{font-size:15px;color:#1f4e79;margin:18px 0 6px 0;}
+  .lead{color:#5a6b7b;font-size:13.5px;margin:0 0 16px 0;}
+  .box{border:1px solid #d7e0e8;background:#f8fafc;padding:12px 15px;margin:12px 0;}
+  .box b{color:#1f4e79;}
+  .tip{border-left:4px solid #e07a35;background:#fdf5ee;padding:10px 14px;font-size:13.5px;margin:12px 0;}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;}
+  th,td{border:1px solid #cbd6e0;padding:6px 8px;text-align:center;}
+  th{background:#dce8f2;color:#14364f;}
+  tr.sum td{background:#f0f4f8;font-weight:bold;}
+  .num{font-family:"Courier New",monospace;letter-spacing:1px;font-size:14px;}
+  textarea{width:100%;height:74px;font-family:"Courier New",monospace;font-size:14px;
+       border:1px solid #b9c7d4;padding:8px;box-sizing:border-box;}
+  button{background:#1f4e79;color:#fff;border:0;padding:9px 17px;font-size:13.5px;cursor:pointer;margin:4px 6px 4px 0;}
+  button.alt{background:#2a9d8f;}
+  button.gh{background:#eef2f6;color:#1f4e79;border:1px solid #b9c7d4;}
+  label.ck{display:inline-block;margin:6px 18px 6px 0;font-size:13.5px;cursor:pointer;}
+  .chart{border:1px solid #d7e0e8;background:#fff;margin:10px 0 4px 0;}
+  .cap{font-size:12.5px;color:#5a6b7b;font-style:italic;margin:0 0 12px 0;}
+  .col{display:inline-block;vertical-align:top;}
+  .c50{width:49%;}
+  .c50r{margin-left:1.6%;}
+  .c34{width:34%;}
+  .c64{width:64%;margin-left:1.4%;}
+  input[type=range]{width:100%;}
+  .big{font-size:26px;font-weight:bold;color:#c0392b;}
+  .big2{font-size:26px;font-weight:bold;color:#2a9d8f;}
+  .q{border:1px solid #d7e0e8;padding:12px 15px;margin:0 0 12px 0;}
+  .q p{margin:0 0 8px 0;font-weight:bold;font-size:14px;}
+  .opt{display:block;padding:5px 8px;margin:2px 0;cursor:pointer;font-size:13.5px;border:1px solid #fff;}
+  .opt:hover{background:#f2f6fa;}
+  .opt.right{background:#e6f5ef;border:1px solid #2a9d8f;font-weight:bold;}
+  .opt.wrong{background:#fdeceb;border:1px solid #c0392b;}
+  .fb{font-size:13px;margin-top:7px;padding:8px 10px;background:#f8fafc;border-left:4px solid #2a9d8f;}
+  .fb.no{border-left-color:#c0392b;}
+  .score{background:#1f4e79;color:#fff;padding:12px 16px;font-size:15px;}
+  .ft{background:#14364f;color:#9fb8cd;font-size:11.5px;padding:12px 26px;}
+  .ft b{color:#fff;}
+  ol,ul{margin:6px 0 6px 20px;padding:0;}
+  li{margin:3px 0;font-size:13.8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hd">
+    <span class="logo">G</span>
+    <span class="ttl">
+      <h1>GRAFIKAS</h1>
+      <p>Media Interaktif Penyajian Data &mdash; Histogram, Poligon Frekuensi, dan Ogive<br>
+         Mata Kuliah Statistika (KK33B219) &middot; Pertemuan ke-3 &middot; Prodi Sistem Informasi Unindra</p>
+    </span>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <!-- ============ BERANDA ============ -->
+  <div class="pane" id="p-beranda">
+    <h2>Selamat datang di GRAFIKAS</h2>
+    <p class="lead">Media ini mengubah data iuran kas PKK menjadi tabel distribusi frekuensi, histogram,
+       poligon, dan ogive secara langsung. Anda mengganti data, medianya menggambar ulang grafiknya.</p>
+
+    <div class="box">
+      <b>CPMK 3:</b> Mahasiswa mampu menyajikan data ke dalam berbagai bentuk penyajian data.<br>
+      <b>Sub-CPMK 3 (C3 &ndash; Menerapkan):</b> Mahasiswa mampu menyajikan data dalam bentuk
+      grafik/diagram (histogram, poligon, ogive) baik secara manual maupun menggunakan aplikasi.
+    </div>
+
+    <h3>Peta materi</h3>
+    <div class="chart" id="peta"></div>
+    <p class="cap">Kedudukan materi pertemuan ke-3: tabel distribusi frekuensi menjadi bahan baku tiga grafik data berkelompok.</p>
+
+    <h3>Cara memakai media ini</h3>
+    <ol>
+      <li><b>Data &amp; Tabel</b> &ndash; amati 40 data iuran anggota PKK, susun tabel distribusi frekuensinya, boleh ganti dengan data kelompok Anda sendiri.</li>
+      <li><b>Histogram &amp; Poligon</b> &ndash; nyalakan dan matikan lapisan grafik, uji apa yang terjadi jika batang histogram diberi jarak.</li>
+      <li><b>Ogive</b> &ndash; jawab pertanyaan kumulatif dengan menggeser penunjuk tepi kelas.</li>
+      <li><b>Uji Kejujuran Grafik</b> &ndash; geser skala sumbu tegak, lihat bagaimana data yang sama bisa terlihat berbeda.</li>
+      <li><b>Kuis</b> &ndash; kerjakan 5 soal, umpan balik muncul seketika.</li>
+    </ol>
+
+    <div class="tip"><b>Sumber data.</b> Seluruh contoh memakai data pengelolaan kas kelompok PKK RW 07 dari
+      penelitian dan pengabdian penyusun, <i>Digitalisasi Keuangan PKK Berbasis Model Matematika untuk
+      Akuntabilitas dan Pemberdayaan Komunitas</i> (JNKTI, 2026). Satuan seluruh nilai: ribu rupiah.</div>
+  </div>
+
+  <!-- ============ DATA & TABEL ============ -->
+  <div class="pane" id="p-data">
+    <h2>1. Data Mentah dan Tabel Distribusi Frekuensi</h2>
+    <p class="lead">Besar iuran sukarela 40 anggota PKK RW 07 (ribu rupiah). Nilai 41 berarti Rp41.000.</p>
+
+    <textarea id="raw"></textarea>
+    <button onclick="rebuild()">Susun tabel distribusi frekuensi</button>
+    <button class="gh" onclick="resetData()">Kembalikan data awal</button>
+    <span id="warn" style="color:#c0392b;font-size:13px;"></span>
+
+    <div id="tabelWrap"></div>
+
+    <div class="tip"><b>Dua istilah yang sering tertukar.</b> Tepi bawah = batas bawah &minus; 0,5 dan
+      tepi atas = batas atas + 0,5, dipakai sebagai sumbu datar histogram serta ogive.
+      Titik tengah = (batas bawah + batas atas) &divide; 2, dipakai sebagai sumbu datar poligon frekuensi.</div>
+  </div>
+
+  <!-- ============ HISTOGRAM ============ -->
+  <div class="pane" id="p-histogram">
+    <h2>2. Histogram dan Poligon Frekuensi</h2>
+    <p class="lead">Grafik di bawah digambar langsung dari tabel pada menu sebelumnya.</p>
+
+    <label class="ck"><input type="checkbox" id="cHist" checked onchange="drawHist()"> Tampilkan histogram</label>
+    <label class="ck"><input type="checkbox" id="cPoli" onchange="drawHist()"> Tampilkan poligon frekuensi</label>
+    <label class="ck"><input type="checkbox" id="cGap" onchange="drawHist()"> Beri jarak antarbatang</label>
+    <label class="ck"><input type="checkbox" id="cVal" checked onchange="drawHist()"> Tampilkan angka frekuensi</label>
+
+    <div class="chart" id="chHist"></div>
+    <p class="cap" id="capHist"></p>
+
+    <div id="msgGap" class="tip" style="display:none">
+      <b>Perhatikan.</b> Batang yang berjarak menyatakan kategori yang terpisah, itu ciri diagram batang.
+      Data iuran bersifat kontinu dan kelasnya bersambung pada tepi kelas, jadi batang histogram harus berimpit.
+      Matikan kembali pilihan tersebut.
+    </div>
+
+    <div class="box" id="bacaHist"></div>
+  </div>
+
+  <!-- ============ OGIVE ============ -->
+  <div class="pane" id="p-ogive">
+    <h2>3. Ogive Positif dan Ogive Negatif</h2>
+    <p class="lead">Ogive positif berasal dari frekuensi kumulatif &ldquo;kurang dari&rdquo; dan bentuknya naik,
+       ogive negatif dari &ldquo;lebih dari&rdquo; dan bentuknya turun. Keduanya digambar pada tepi kelas.</p>
+
+    <div class="col c34" id="tabKum"></div>
+    <div class="col c64">
+      <div class="chart" id="chOgive"></div>
+    </div>
+
+    <h3>Menjawab pertanyaan kumulatif</h3>
+    <p style="font-size:13.5px;margin:0 0 6px 0;">Geser penunjuk ke tepi kelas yang Anda tanyakan.</p>
+    <input type="range" id="sTepi" min="0" max="6" value="3" step="1" oninput="drawOgive()">
+    <div class="box" id="bacaOgive"></div>
+  </div>
+
+  <!-- ============ KEJUJURAN ============ -->
+  <div class="pane" id="p-kejujuran">
+    <h2>4. Uji Kejujuran Grafik</h2>
+    <p class="lead">Data saldo kas PKK RW 05 Januari&ndash;Juni 2025 (ribu rupiah): 1.200; 1.450; 1.300; 1.650; 1.500; 1.800.
+       Angkanya tidak diubah sama sekali. Yang Anda geser hanya titik awal sumbu tegak.</p>
+
+    <p style="font-size:13.5px;margin:0 0 4px 0;"><b>Sumbu tegak dimulai dari:</b> <span class="num" id="labMin"></span></p>
+    <input type="range" id="sMin" min="0" max="1150" value="0" step="50" oninput="drawHonest()">
+
+    <div class="chart" id="chHonest"></div>
+    <p class="cap">Grafik garis perkembangan saldo kas dengan titik awal sumbu tegak yang dapat digeser.</p>
+
+    <div class="box">
+      <div class="col c50">
+        Kenaikan sebenarnya Januari &rarr; Juni<br>
+        <span class="big2" id="realRise"></span>
+      </div>
+      <div class="col c50 c50r">
+        Kesan kenaikan yang terlihat mata<br>
+        <span class="big" id="fakeRise"></span>
+      </div>
+    </div>
+    <div class="tip" id="verdict"></div>
+  </div>
+
+  <!-- ============ KUIS ============ -->
+  <div class="pane" id="p-kuis">
+    <h2>5. Kuis Formatif</h2>
+    <p class="lead">Lima soal, satu jawaban benar. Umpan balik muncul begitu Anda memilih.</p>
+    <div id="quiz"></div>
+    <div class="score" id="score">Skor: 0 dari 5 soal terjawab.</div>
+    <button class="gh" style="margin-top:10px" onclick="buildQuiz()">Ulangi kuis</button>
+  </div>
+
+  <div class="ft">
+    <b>GRAFIKAS</b> &mdash; Media interaktif penyajian data berbantuan TIK.
+    Penyusun: <b>Syifa Afidah Nurul Arifin, M.Pd.</b> &middot; Program Studi Sistem Informasi,
+    Fakultas Teknik dan Ilmu Komputer, Universitas Indraprasta PGRI &middot; 2026.<br>
+    Data contoh bersumber dari penelitian dan pengabdian kepada masyarakat penyusun mengenai digitalisasi keuangan PKK.
+  </div>
+</div>
+
+<script>
+/* =============== NAVIGASI =============== */
+var TABS = [
+  ["beranda","Beranda"],
+  ["data","Data &amp; Tabel"],
+  ["histogram","Histogram &amp; Poligon"],
+  ["ogive","Ogive"],
+  ["kejujuran","Uji Kejujuran Grafik"],
+  ["kuis","Kuis"]
+];
+function nav(id){
+  var i, h = "";
+  for(i=0;i<TABS.length;i++){
+    h += '<a href="#'+TABS[i][0]+'" class="'+(TABS[i][0]===id?"on":"")+'" onclick="nav(\''+TABS[i][0]+'\');return false;">'+TABS[i][1]+'</a>';
+    document.getElementById("p-"+TABS[i][0]).style.display = (TABS[i][0]===id) ? "block" : "none";
+  }
+  document.getElementById("nav").innerHTML = h;
+}
+
+/* =============== DATA =============== */
+var DATA0 = [41,22,54,31,67,45,38,61,51,27,47,35,58,44,72,33,
+             62,42,25,55,48,71,39,52,46,64,36,57,43,68,40,53,
+             74,49,65,44,56,77,50,59];
+var KELAS = [[20,29],[30,39],[40,49],[50,59],[60,69],[70,79]];
+var data = DATA0.slice(0), freq = [], kum = [], kumL = [];
+
+function fmt(n){ return String(n).replace(".",","); }
+function rb(n){ var s=String(n), o="", c=0, i;
+  for(i=s.length-1;i>=0;i--){ o=s.charAt(i)+o; c++; if(c%3===0 && i>0) o="."+o; } return o; }
+function turus(f){ var s="", i;
+  for(i=0;i<f;i++){ s += (i>0 && i%5===0) ? " " : ""; s += (i%5===4) ? "/" : "|"; } return s; }
+
+function hitung(){
+  var i,k; freq = []; kum = []; kumL = [];
+  for(k=0;k<KELAS.length;k++){
+    var f=0;
+    for(i=0;i<data.length;i++) if(data[i]>=KELAS[k][0] && data[i]<=KELAS[k][1]) f++;
+    freq.push(f);
+  }
+  var run=0; kum.push(0);
+  for(k=0;k<freq.length;k++){ run+=freq[k]; kum.push(run); }
+  for(k=0;k<kum.length;k++) kumL.push(run-kum[k]);
+}
+
+function tabel(){
+  var h = '<h3>Tabel distribusi frekuensi</h3><table><tr><th>Kelas Interval<br>(ribu Rp)</th><th>Turus</th>'
+        + '<th>Frekuensi (f<sub>i</sub>)</th><th>Tepi Bawah</th><th>Tepi Atas</th><th>Titik Tengah (x<sub>i</sub>)</th></tr>';
+  var k, tot=0;
+  for(k=0;k<KELAS.length;k++){
+    tot += freq[k];
+    h += '<tr><td>'+KELAS[k][0]+' &ndash; '+KELAS[k][1]+'</td><td class="num">'+turus(freq[k])
+      +  '</td><td><b>'+freq[k]+'</b></td><td>'+fmt(KELAS[k][0]-0.5)+'</td><td>'+fmt(KELAS[k][1]+0.5)
+      +  '</td><td>'+fmt((KELAS[k][0]+KELAS[k][1])/2)+'</td></tr>';
+  }
+  h += '<tr class="sum"><td>Jumlah</td><td>&mdash;</td><td>'+tot+'</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td></tr></table>';
+  var mx=0, mi=0;
+  for(k=0;k<freq.length;k++) if(freq[k]>mx){ mx=freq[k]; mi=k; }
+  h += '<div class="box">Frekuensi tertinggi berada pada kelas <b>'+KELAS[mi][0]+' &ndash; '+KELAS[mi][1]
+    +  '</b> sebanyak <b>'+mx+'</b> anggota. Artinya iuran anggota paling banyak berkumpul pada rentang Rp'
+    +  rb(KELAS[mi][0]*1000)+' sampai Rp'+rb(KELAS[mi][1]*1000)+'.</div>';
+  document.getElementById("tabelWrap").innerHTML = h;
+}
+
+function tabelKum(){
+  var h = '<table><tr><th>Tepi Kelas</th><th>Kum. &ldquo;Kurang dari&rdquo;</th><th>Kum. &ldquo;Lebih dari&rdquo;</th></tr>';
+  var k;
+  for(k=0;k<kum.length;k++){
+    h += '<tr><td>'+fmt(KELAS[0][0]-0.5+10*k)+'</td><td><b>'+kum[k]+'</b></td><td><b>'+kumL[k]+'</b></td></tr>';
+  }
+  document.getElementById("tabKum").innerHTML = h + '</table>';
+}
+
+function rebuild(){
+  var t = document.getElementById("raw").value.replace(/[^0-9]+/g," ").replace(/^\s+|\s+$/g,"").split(/\s+/);
+  var arr = [], i, v, buang = 0;
+  for(i=0;i<t.length;i++){ v = parseInt(t[i],10);
+    if(!isNaN(v)){ if(v>=20 && v<=79) arr.push(v); else buang++; } }
+  document.getElementById("warn").innerHTML = buang
+    ? (buang+" nilai di luar rentang 20&ndash;79 tidak dimasukkan.") : "";
+  if(arr.length===0){ document.getElementById("warn").innerHTML="Data belum terbaca, periksa kembali isinya."; return; }
+  data = arr; render();
+}
+function resetData(){ data = DATA0.slice(0); document.getElementById("warn").innerHTML=""; render(); }
+
+/* =============== ALAT GAMBAR SVG =============== */
+var W=860, H=380, ML=62, MR=22, MT=26, MB=58;
+function px(v,d0,d1){ return ML + (v-d0)/(d1-d0)*(W-ML-MR); }
+function py(v,r){ return H-MB - (v/r)*(H-MB-MT); }
+function svgOpen(){ return '<svg width="100%" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" '
+  + 'style="font-family:Segoe UI,Arial,sans-serif;font-size:12.5px">'
+  + '<rect x="0" y="0" width="'+W+'" height="'+H+'" fill="#ffffff"/>'; }
+function axes(title,xlab,ylab,ymax,ystep,d0,d1){
+  var s = '<text x="'+(W/2)+'" y="17" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#14364f">'+title+'</text>';
+  var v;
+  for(v=0;v<=ymax;v+=ystep){
+    s += '<line x1="'+ML+'" y1="'+py(v,ymax)+'" x2="'+(W-MR)+'" y2="'+py(v,ymax)+'" stroke="#e3eaf1" stroke-width="1"/>'
+      +  '<text x="'+(ML-8)+'" y="'+(py(v,ymax)+4)+'" text-anchor="end" fill="#5a6b7b">'+rb(v)+'</text>';
+  }
+  s += '<line x1="'+ML+'" y1="'+MT+'" x2="'+ML+'" y2="'+(H-MB)+'" stroke="#7f8fa0" stroke-width="1.5"/>'
+    +  '<line x1="'+ML+'" y1="'+(H-MB)+'" x2="'+(W-MR)+'" y2="'+(H-MB)+'" stroke="#7f8fa0" stroke-width="1.5"/>'
+    +  '<text x="'+(W/2)+'" y="'+(H-16)+'" text-anchor="middle" fill="#22303c">'+xlab+'</text>'
+    +  '<text x="16" y="'+(H/2)+'" text-anchor="middle" fill="#22303c" transform="rotate(-90 16 '+(H/2)+')">'+ylab+'</text>';
+  return s;
+}
+function xticks(vals,d0,d1){
+  var s="", i, x;
+  for(i=0;i<vals.length;i++){ x = px(vals[i],d0,d1);
+    s += '<line x1="'+x+'" y1="'+(H-MB)+'" x2="'+x+'" y2="'+(H-MB+5)+'" stroke="#7f8fa0"/>'
+      +  '<text x="'+x+'" y="'+(H-MB+19)+'" text-anchor="middle" fill="#5a6b7b">'+fmt(vals[i])+'</text>'; }
+  return s;
+}
+
+/* =============== HISTOGRAM + POLIGON =============== */
+function drawHist(){
+  var d0=14.5, d1=84.5, ymax=0, k;
+  for(k=0;k<freq.length;k++) if(freq[k]>ymax) ymax=freq[k];
+  ymax = Math.ceil((ymax+1)/2)*2;
+  var showH = document.getElementById("cHist").checked;
+  var showP = document.getElementById("cPoli").checked;
+  var gap   = document.getElementById("cGap").checked;
+  var showV = document.getElementById("cVal").checked;
+  var s = svgOpen() + axes("Sebaran Besar Iuran 40 Anggota PKK RW 07","Besar iuran (ribu rupiah)","Frekuensi (banyak anggota)",ymax,2,d0,d1);
+  var ticks=[], i;
+  for(i=0;i<KELAS.length+1;i++) ticks.push(19.5+10*i);
+  s += xticks(ticks,d0,d1);
+
+  if(showH){
+    for(k=0;k<freq.length;k++){
+      var x1=px(KELAS[k][0]-0.5,d0,d1), x2=px(KELAS[k][1]+0.5,d0,d1);
+      var g = gap ? (x2-x1)*0.12 : 0;
+      var y=py(freq[k],ymax);
+      s += '<rect x="'+(x1+g)+'" y="'+y+'" width="'+(x2-x1-2*g)+'" height="'+(H-MB-y)+'" fill="#3b76a8" stroke="#1f4e79"/>';
+      if(showV) s += '<text x="'+((x1+x2)/2)+'" y="'+(y-6)+'" text-anchor="middle" font-weight="bold" fill="#14364f">'+freq[k]+'</text>';
+    }
+  }
+  if(showP){
+    var pts = px(KELAS[0][0]-10.5+5,d0,d1)+","+py(0,ymax)+" ";
+    for(k=0;k<freq.length;k++) pts += px((KELAS[k][0]+KELAS[k][1])/2,d0,d1)+","+py(freq[k],ymax)+" ";
+    pts += px((KELAS[5][0]+KELAS[5][1])/2+10,d0,d1)+","+py(0,ymax);
+    s += '<polyline points="'+pts+'" fill="none" stroke="#e07a35" stroke-width="2.6"/>';
+    for(k=0;k<freq.length;k++)
+      s += '<circle cx="'+px((KELAS[k][0]+KELAS[k][1])/2,d0,d1)+'" cy="'+py(freq[k],ymax)+'" r="4.2" fill="#fff" stroke="#e07a35" stroke-width="2.4"/>';
+    s += '<rect x="'+(W-MR-196)+'" y="'+(MT+6)+'" width="188" height="24" fill="#fdf5ee" stroke="#e6c9ad"/>'
+      +  '<line x1="'+(W-MR-186)+'" y1="'+(MT+18)+'" x2="'+(W-MR-158)+'" y2="'+(MT+18)+'" stroke="#e07a35" stroke-width="2.6"/>'
+      +  '<text x="'+(W-MR-152)+'" y="'+(MT+22)+'" fill="#22303c">poligon pada titik tengah kelas</text>';
+  }
+  document.getElementById("chHist").innerHTML = s + '</svg>';
+  document.getElementById("capHist").innerHTML = "Histogram digambar pada tepi kelas, poligon frekuensi pada titik tengah kelas.";
+  document.getElementById("msgGap").style.display = gap ? "block" : "none";
+
+  var mx=0, mi=0;
+  for(k=0;k<freq.length;k++) if(freq[k]>mx){ mx=freq[k]; mi=k; }
+  var kiri=0, kanan=0;
+  for(k=0;k<mi;k++) kiri+=freq[k];
+  for(k=mi+1;k<freq.length;k++) kanan+=freq[k];
+  document.getElementById("bacaHist").innerHTML =
+    "<b>Membaca grafik.</b> Puncak sebaran berada pada kelas "+KELAS[mi][0]+"&ndash;"+KELAS[mi][1]+" dengan "+mx
+    +" anggota. Di bawah kelas puncak terdapat "+kiri+" anggota dan di atasnya "+kanan
+    +" anggota, sehingga sebaran ini "+(kanan>kiri?"sedikit menceng ke kanan":(kanan<kiri?"sedikit menceng ke kiri":"cenderung simetris"))
+    +". Bentuk seperti ini menjadi bekal sebelum menghitung rata-rata pada pertemuan berikutnya.";
+}
+
+/* =============== OGIVE =============== */
+function drawOgive(){
+  var d0=19.5, d1=79.5, ymax=Math.ceil(data.length/10)*10, k, x, y;
+  var s = svgOpen() + axes("Ogive Positif dan Ogive Negatif Iuran Anggota PKK","Tepi kelas (ribu rupiah)","Frekuensi kumulatif",ymax,5,d0,d1);
+  var ticks=[]; for(k=0;k<kum.length;k++) ticks.push(19.5+10*k);
+  s += xticks(ticks,d0,d1);
+  var p1="", p2="";
+  for(k=0;k<kum.length;k++){
+    p1 += px(19.5+10*k,d0,d1)+","+py(kum[k],ymax)+" ";
+    p2 += px(19.5+10*k,d0,d1)+","+py(kumL[k],ymax)+" ";
+  }
+  s += '<polyline points="'+p1+'" fill="none" stroke="#1f4e79" stroke-width="2.6"/>'
+    +  '<polyline points="'+p2+'" fill="none" stroke="#e07a35" stroke-width="2.6"/>';
+  for(k=0;k<kum.length;k++){
+    s += '<circle cx="'+px(19.5+10*k,d0,d1)+'" cy="'+py(kum[k],ymax)+'" r="4" fill="#1f4e79"/>'
+      +  '<circle cx="'+px(19.5+10*k,d0,d1)+'" cy="'+py(kumL[k],ymax)+'" r="4" fill="#e07a35"/>';
+  }
+  var i = parseInt(document.getElementById("sTepi").value,10);
+  var tepi = 19.5+10*i;
+  x = px(tepi,d0,d1);
+  s += '<line x1="'+x+'" y1="'+MT+'" x2="'+x+'" y2="'+(H-MB)+'" stroke="#2a9d8f" stroke-width="1.6" stroke-dasharray="5,4"/>'
+    +  '<circle cx="'+x+'" cy="'+py(kum[i],ymax)+'" r="7" fill="none" stroke="#2a9d8f" stroke-width="2.6"/>'
+    +  '<text x="'+(x+10)+'" y="'+(py(kum[i],ymax)-9)+'" font-weight="bold" fill="#14364f">'+kum[i]+' anggota</text>';
+  s += '<rect x="'+(ML+14)+'" y="'+(MT+6)+'" width="196" height="42" fill="#f8fafc" stroke="#d7e0e8"/>'
+    +  '<line x1="'+(ML+24)+'" y1="'+(MT+20)+'" x2="'+(ML+52)+'" y2="'+(MT+20)+'" stroke="#1f4e79" stroke-width="2.6"/>'
+    +  '<text x="'+(ML+58)+'" y="'+(MT+24)+'" fill="#22303c">ogive positif (kurang dari)</text>'
+    +  '<line x1="'+(ML+24)+'" y1="'+(MT+38)+'" x2="'+(ML+52)+'" y2="'+(MT+38)+'" stroke="#e07a35" stroke-width="2.6"/>'
+    +  '<text x="'+(ML+58)+'" y="'+(MT+42)+'" fill="#22303c">ogive negatif (lebih dari)</text>';
+  document.getElementById("chOgive").innerHTML = s + '</svg>';
+  document.getElementById("bacaOgive").innerHTML =
+    "Pada tepi kelas <b>"+fmt(tepi)+"</b> terbaca <b>"+kum[i]+" anggota</b> beriuran kurang dari Rp"
+    + rb(Math.round(tepi*1000)) + " dan <b>"+kumL[i]+" anggota</b> beriuran lebih dari nilai tersebut. "
+    + "Perpotongan kedua kurva menunjukkan letak nilai tengah (median) data.";
+}
+
+/* =============== UJI KEJUJURAN GRAFIK =============== */
+var BLN=["Jan","Feb","Mar","Apr","Mei","Jun"], SALDO=[1200,1450,1300,1650,1500,1800];
+function drawHonest(){
+  var ymin = parseInt(document.getElementById("sMin").value,10);
+  var ymax = 1900, i, x, y, s;
+  document.getElementById("labMin").innerHTML = "Rp"+rb(ymin*1000);
+  s = svgOpen();
+  s += '<text x="'+(W/2)+'" y="17" text-anchor="middle" font-size="14.5" font-weight="bold" fill="#14364f">Perkembangan Saldo Kas PKK RW 05, Januari&ndash;Juni 2025</text>';
+  var step = 250, v;
+  function ky(v){ return H-MB - (v-ymin)/(ymax-ymin)*(H-MB-MT); }
+  for(v=Math.ceil(ymin/step)*step; v<=ymax; v+=step){
+    s += '<line x1="'+ML+'" y1="'+ky(v)+'" x2="'+(W-MR)+'" y2="'+ky(v)+'" stroke="#e3eaf1"/>'
+      +  '<text x="'+(ML-8)+'" y="'+(ky(v)+4)+'" text-anchor="end" fill="#5a6b7b">'+rb(v)+'</text>';
+  }
+  s += '<text x="'+(ML-8)+'" y="'+(ky(ymin)+4)+'" text-anchor="end" font-weight="bold" fill="#c0392b">'+rb(ymin)+'</text>';
+  s += '<line x1="'+ML+'" y1="'+MT+'" x2="'+ML+'" y2="'+(H-MB)+'" stroke="#7f8fa0" stroke-width="1.5"/>'
+    +  '<line x1="'+ML+'" y1="'+(H-MB)+'" x2="'+(W-MR)+'" y2="'+(H-MB)+'" stroke="#7f8fa0" stroke-width="1.5"/>'
+    +  '<text x="'+(W/2)+'" y="'+(H-16)+'" text-anchor="middle" fill="#22303c">Bulan (2025)</text>'
+    +  '<text x="16" y="'+(H/2)+'" text-anchor="middle" fill="#22303c" transform="rotate(-90 16 '+(H/2)+')">Saldo kas (ribu rupiah)</text>';
+  var pts="";
+  for(i=0;i<6;i++){
+    x = ML + (i+0.5)/6*(W-ML-MR);
+    pts += x+","+ky(SALDO[i])+" ";
+    s += '<text x="'+x+'" y="'+(H-MB+19)+'" text-anchor="middle" fill="#5a6b7b">'+BLN[i]+'</text>';
+  }
+  s += '<polyline points="'+pts+'" fill="none" stroke="'+(ymin>0?"#c0392b":"#2a9d8f")+'" stroke-width="3"/>';
+  for(i=0;i<6;i++){
+    x = ML + (i+0.5)/6*(W-ML-MR); y = ky(SALDO[i]);
+    s += '<circle cx="'+x+'" cy="'+y+'" r="4.6" fill="#fff" stroke="'+(ymin>0?"#c0392b":"#2a9d8f")+'" stroke-width="2.4"/>'
+      +  '<text x="'+x+'" y="'+(y-11)+'" text-anchor="middle" font-weight="bold" fill="#14364f">'+rb(SALDO[i])+'</text>';
+  }
+  document.getElementById("chHonest").innerHTML = s + '</svg>';
+
+  var real = Math.round((SALDO[5]-SALDO[0])/SALDO[0]*100);
+  var rasio = (SALDO[5]-ymin)/(SALDO[0]-ymin);
+  document.getElementById("realRise").innerHTML = "+"+real+"%";
+  document.getElementById("fakeRise").innerHTML = (Math.round(rasio*10)/10+"").replace(".",",")+" kali lebih tinggi";
+  document.getElementById("verdict").innerHTML = (ymin===0)
+    ? "<b>Skala dimulai dari nol.</b> Tinggi titik Juni memang satu setengah kali tinggi titik Januari, sesuai keadaan sebenarnya. Grafik seperti ini yang layak dilaporkan kepada warga."
+    : "<b>Skala dipotong pada Rp"+rb(ymin*1000)+".</b> Saldo hanya naik "+real+"%, tetapi pembaca melihat titik Juni "
+      + (Math.round(rasio*10)/10+"").replace(".",",")+" kali lebih tinggi daripada Januari. Grafik ini melanggar prinsip"
+      + " <b>jujur</b>, sehingga laporan kas kelompok kehilangan akuntabilitasnya.";
+}
+
+/* =============== KUIS =============== */
+var SOAL = [
+  {q:"Grafik data berkelompok berupa batang-batang yang saling berimpit tanpa jarak antarbatang disebut &hellip;",
+   o:["Diagram batang","Histogram","Poligon frekuensi","Ogive"], a:1,
+   f:"Batang berimpit menandakan kelas yang bersambung pada tepi kelas, ciri khas histogram. Diagram batang justru diberi jarak karena kategorinya terpisah."},
+  {q:"Poligon frekuensi dibuat dengan menghubungkan titik-titik yang absisnya berupa &hellip;",
+   o:["Tepi bawah kelas","Tepi atas kelas","Titik tengah kelas","Batas atas kelas"], a:2,
+   f:"Absis poligon adalah titik tengah kelas, dihitung dari (batas bawah + batas atas) &divide; 2, misalnya 24,5 untuk kelas 20&ndash;29."},
+  {q:"Tepi bawah dari kelas interval 40 &ndash; 49 adalah &hellip;",
+   o:["39,5","40","40,5","44,5"], a:0,
+   f:"Tepi bawah = batas bawah &minus; 0,5 = 40 &minus; 0,5 = 39,5. Nilai 44,5 adalah titik tengahnya."},
+  {q:"Berdasarkan tabel pada menu Data &amp; Tabel, banyak anggota yang beriuran kurang dari Rp50.000 adalah &hellip;",
+   o:["11 anggota","20 anggota","30 anggota","36 anggota"], a:1,
+   f:"Frekuensi kumulatif kurang dari pada tepi kelas 49,5 adalah 3 + 6 + 11 = 20 anggota, tepat setengah dari 40 anggota."},
+  {q:"Bendahara ingin menampilkan naik-turun saldo kas selama enam bulan agar warga memahami kapan terjadi surplus dan defisit. Bentuk penyajian yang paling tepat adalah &hellip;",
+   o:["Diagram lingkaran","Histogram","Diagram garis","Ogive negatif"], a:2,
+   f:"Diagram garis menampilkan perkembangan data dari waktu ke waktu, sehingga naik-turun saldo terbaca sebagai surplus dan defisit tiap bulan."}
+];
+var jawab = [];
+function buildQuiz(){
+  var h="", i, j;
+  jawab = [];
+  for(i=0;i<SOAL.length;i++){
+    jawab.push(-1);
+    h += '<div class="q"><p>'+(i+1)+'. '+SOAL[i].q+'</p>';
+    for(j=0;j<SOAL[i].o.length;j++){
+      h += '<span class="opt" id="o'+i+'-'+j+'" onclick="pilih('+i+','+j+')">'
+        +  String.fromCharCode(65+j)+'. '+SOAL[i].o[j]+'</span>';
+    }
+    h += '<div class="fb" id="f'+i+'" style="display:none"></div></div>';
+  }
+  document.getElementById("quiz").innerHTML = h;
+  document.getElementById("score").innerHTML = "Skor: 0 dari "+SOAL.length+" soal terjawab.";
+}
+function pilih(i,j){
+  if(jawab[i]!==-1) return;
+  jawab[i]=j;
+  var benar = SOAL[i].a, k;
+  document.getElementById("o"+i+"-"+benar).className = "opt right";
+  if(j!==benar) document.getElementById("o"+i+"-"+j).className = "opt wrong";
+  var fb = document.getElementById("f"+i);
+  fb.className = "fb" + (j===benar ? "" : " no");
+  fb.innerHTML = (j===benar ? "<b>Tepat.</b> " : "<b>Belum tepat.</b> Jawaban yang benar "
+    + String.fromCharCode(65+benar) + ". ") + SOAL[i].f;
+  fb.style.display = "block";
+  var skor=0, dijawab=0;
+  for(k=0;k<SOAL.length;k++){ if(jawab[k]!==-1){ dijawab++; if(jawab[k]===SOAL[k].a) skor++; } }
+  document.getElementById("score").innerHTML = "Skor: <b>"+skor+"</b> benar dari "+dijawab+" soal terjawab."
+    + (dijawab===SOAL.length ? (" Nilai akhir <b>"+Math.round(skor/SOAL.length*100)+"</b> dari 100."
+        + (skor>=4 ? " Anda siap mengerjakan LKM Kegiatan 3." : " Baca ulang bagian tepi kelas dan titik tengah pada Bahan Ajar, lalu ulangi kuis.")) : "");
+}
+
+/* =============== INISIALISASI =============== */
+function render(){ hitung(); tabel(); tabelKum(); drawHist(); drawOgive(); }
+function peta(){
+  var s = '<svg width="100%" viewBox="0 0 860 250" xmlns="http://www.w3.org/2000/svg" style="font-family:Segoe UI,Arial,sans-serif;font-size:12.5px">'
+    + '<rect width="860" height="250" fill="#fff"/>';
+  function bx(x,y,w,h,f,st,t,c,fs,fw){
+    return '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="4" fill="'+f+'" stroke="'+st+'"/>'
+      + '<text x="'+(x+w/2)+'" y="'+(y+h/2+4.5)+'" text-anchor="middle" fill="'+c+'" font-size="'+fs+'" font-weight="'+fw+'">'+t+'</text>';
+  }
+  function ln(x1,y1,x2,y2){ return '<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="#9db0c2" stroke-width="1.6"/>'; }
+  s += bx(330,12,200,34,"#1f4e79","#1f4e79","PENYAJIAN DATA","#fff",14,"bold");
+  s += ln(430,46,430,62) + ln(200,62,660,62) + ln(200,62,200,78) + ln(660,62,660,78);
+  s += bx(96,78,208,34,"#2a9d8f","#2a9d8f","Data tunggal / kategorik","#fff",12.5,"bold");
+  s += bx(556,78,208,34,"#e07a35","#e07a35","Data berkelompok","#fff",12.5,"bold");
+  var kiri=["Diagram batang","Diagram garis","Diagram lingkaran"], kanan=["Histogram","Poligon frekuensi","Ogive positif &amp; negatif"];
+  var i;
+  for(i=0;i<3;i++){
+    s += ln(200,112+i*44,200,124+i*44) + bx(96,124+i*44,208,30,"#eef4f9","#c2d4e2",kiri[i],"#22303c",12.5,"normal");
+    s += ln(660,112+i*44,660,124+i*44) + bx(556,124+i*44,208,30,"#fdf1e6","#e6c9ad",kanan[i],"#22303c",12.5,"normal");
+  }
+  s += '<text x="660" y="248" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5a6b7b">bersumber dari tabel distribusi frekuensi (pertemuan ke-2)</text>';
+  document.getElementById("peta").innerHTML = s + '</svg>';
+}
+function init(){
+  var i, t="";
+  for(i=0;i<DATA0.length;i++){ t += (DATA0[i]<10?" ":"") + DATA0[i] + ((i+1)%8===0 ? "\n" : "  "); }
+  document.getElementById("raw").value = t.replace(/\s+$/,"");
+  peta(); render(); drawHonest(); buildQuiz();
+  var h = location.hash.replace(/[^a-z]/g,"");
+  var ok = "beranda";
+  for(i=0;i<TABS.length;i++) if(h.indexOf(TABS[i][0])===0) ok = TABS[i][0];
+  nav(ok);
+  if(location.hash.indexOf("poli")>-1){ document.getElementById("cPoli").checked = true; drawHist(); }
+  var ang = location.hash.replace(/[^0-9]/g,"");
+  if(ang.length){ document.getElementById("sMin").value = ang; drawHonest(); }
+  if(location.hash.indexOf("demo")>-1){ pilih(0,1); pilih(1,0); }
+}
+init();
+</script>
+</body>
+</html>
